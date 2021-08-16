@@ -1,0 +1,51 @@
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import axios from 'axios'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+})
+
+
+// Vue.prototype.$video = Video //引入Video播放器
+
+import BaiduMap from 'vue-baidu-map'
+
+Vue.use(BaiduMap, {
+  /* 需要注册百度地图开发者来获取你的ak */
+  ak: 'gW9X9kop5kXDObF50poumzsWoGmGezuG'
+})
+
+import VueAMap from 'vue-amap';
+
+Vue.use(VueAMap);
+VueAMap.initAMapApiLoader({
+  key: '04d038ca35939af368c2be677483b0a2',
+  plugin: [
+    // 插件
+    'AMap.Autocomplete',
+    'AMap.PlaceSearch',
+    'AMap.Scale',
+    'AMap.OverView',
+    'AMap.ToolBar',
+    'AMap.MapType',
+    'AMap.PolyEditor',
+    'AMap.CircleEditor',
+    "AMap.Geolocation" //定位控件，用来获取和展示用户主机所在的经纬度位置
+  ]
+});
+import { Empty } from 'vant';
+Vue.use(Empty);
+Vue.use(ElementUI)
+
+Vue.config.productionTip = false
+Vue.prototype.$axios = axios
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

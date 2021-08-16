@@ -1,0 +1,195 @@
+<template>
+  <div class="home">
+    <!-- 头部 -->
+    <el-row id="header">
+      <el-row class="culture-img">
+        <img
+          src="@/assets/image/118.png"
+          alt=""
+        >
+        <el-row class="inp">
+          <el-input
+            v-model="value"
+            placeholder="请输入搜索内容"
+            suffix-icon="el-icon-search"
+            value=""
+            clearable
+            @keyup.native="searchhandle"
+          >
+          </el-input>
+        </el-row>
+      </el-row>
+      <img
+        src="@/assets/suc/mh2.jpg"
+        alt=""
+        class="low"
+      >
+    </el-row>
+    <!-- 头部导航栏  -->
+    <el-row id="navBar">
+      <el-row class="navBar-title">
+        <el-col>
+          <el-menu
+            :default-active="$route.path"
+            mode="horizontal"
+            text-color="#fff"
+            active-text-color="red"
+            router
+          >
+            <el-menu-item index="/">首页</el-menu-item>
+            <el-menu-item index="/organization">组织架构</el-menu-item>
+            <el-menu-item index='/information'>文化资讯</el-menu-item>
+            <el-menu-item index="/resource">特色资源</el-menu-item>
+            <el-menu-item index="/choiceness">第三方资讯</el-menu-item>
+            <el-menu-item index="/activity">活动信息</el-menu-item>
+            <el-menu-item index="/venue">公共文化场馆</el-menu-item>
+            <el-menu-item index="/public">体育健身场所</el-menu-item>
+            <el-menu-item>
+              <a
+                href="http://www.tmlib.cn/"
+                target="blank"
+              >
+                数字图书馆
+              </a>
+            </el-menu-item>
+            <!-- <el-menu-item>智慧博物馆</el-menu-item> -->
+            <el-menu-item @click.native="toDo">办事指南</el-menu-item>
+          </el-menu>
+        </el-col>
+      </el-row>
+    </el-row>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Index',
+  components: {
+
+  },
+  data () {
+    return {
+      value: '',
+    }
+  },
+  methods: {
+    searchhandle (event) {
+      // console.log(event);
+      if (event.keyCode == 13 && this.value.trim() !== '') {
+        let routeData = this.$router.resolve({ path: `/search/${this.value}` });
+        window.open(routeData.href, '_blank');
+      }
+    },
+    toDo () {
+      this.$confirm(
+        '按湖北省新规定，所有政府业务和服务统一到“鄂汇办”办理',
+        {
+          title: '提示',
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+        }).then(() => {
+          window.open('http://zwfw.hubei.gov.cn/', '_blank');
+        })
+    }
+  }
+}
+</script>
+<style lang="less">
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  color: #000;
+  text-decoration: none;
+  &:hover {
+    color: #ff0000;
+  }
+}
+body {
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+  min-width: 1024px;
+}
+#header {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  .low {
+    width: 100%;
+    position: absolute;
+    top: -85px;
+    height: 190%;
+    z-index: -999;
+  }
+  background-size: 100%;
+  .culture-img {
+    width: 672px;
+    height: 70px;
+    margin: 2% auto;
+    text-align: center;
+    img {
+      width: 40%;
+      margin-top: 2%;
+    }
+    .inp {
+      text-align: center;
+      .el-input {
+        margin-top: 10px;
+        width: 500px;
+        height: 40px;
+        border-radius: 20px;
+        outline: none;
+        border-radius: 5px;
+        padding-left: 12px;
+        font-size: 13px;
+        & ::-webkit-input-placeholder {
+          color: #888;
+        }
+        .el-input__inner {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+#navBar {
+  .navBar-title {
+    width: 100%;
+    .el-menu {
+      box-sizing: border-box;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      background: linear-gradient(to left, #7763e8, #6a56e1);
+      .el-menu-item:hover {
+        background: #6f5ad4;
+      }
+      .el-menu-item {
+        padding: 0;
+        margin-left: 4%;
+        text-align: center;
+      }
+      .el-menu-item:first-child {
+        margin-left: 2%;
+      }
+      a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        line-height: 390%;
+      }
+      .el-menu--horizontal {
+        padding: 0;
+        text-align: center;
+      }
+    }
+  }
+}
+</style>
